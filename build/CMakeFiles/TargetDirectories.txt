@@ -1,0 +1,3 @@
+/Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles/rebuild_cache.dir
+/Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles/edit_cache.dir
+/Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles/quadClassifier.dir
