@@ -123,6 +123,19 @@ quadClassifier/fast:
 	$(MAKE) -f CMakeFiles/quadClassifier.dir/build.make CMakeFiles/quadClassifier.dir/build
 .PHONY : quadClassifier/fast
 
+#=============================================================================
+# Target rules for targets named intrinsics_gen
+
+# Build rule for target.
+intrinsics_gen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 intrinsics_gen
+.PHONY : intrinsics_gen
+
+# fast build rule for target.
+intrinsics_gen/fast:
+	$(MAKE) -f CMakeFiles/intrinsics_gen.dir/build.make CMakeFiles/intrinsics_gen.dir/build
+.PHONY : intrinsics_gen/fast
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -204,6 +217,13 @@ shapeClassifier.cpp.s:
 	$(MAKE) -f CMakeFiles/quadClassifier.dir/build.make CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.s
 .PHONY : shapeClassifier.cpp.s
 
+#=============================================================================
+# LLVM build
+cover:
+	clang++ -fprofile-instr-generate -fcoverage-mapping $(CMAKE_SOURCE_DIR)/main.cpp $(CMAKE_SOURCE_DIR)/qdShape.cpp $(CMAKE_SOURCE_DIR)/shapeClassifier.cpp -o quadClassifier
+	LLVM_PROFILE_FILE=quadClassifier.profraw ./quadClassifier < testInput.txt > output.txt
+	xcrun llvm-profdata merge -sparse quadClassifier.profraw -o quadClassifier.profdata
+	xcrun llvm-cov show ./quadClassifier -instr-profile=quadClassifier.profdata
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -213,6 +233,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... quadClassifier"
+	@echo "... intrinsics_gen"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -235,4 +256,5 @@ help:
 cmake_check_build_system:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
+
 

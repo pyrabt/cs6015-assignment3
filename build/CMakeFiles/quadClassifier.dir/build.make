@@ -109,6 +109,15 @@ quadClassifier: CMakeFiles/quadClassifier.dir/main.cpp.o
 quadClassifier: CMakeFiles/quadClassifier.dir/qdShape.cpp.o
 quadClassifier: CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.o
 quadClassifier: CMakeFiles/quadClassifier.dir/build.make
+quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMSupport.a
+quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMCore.a
+quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMIRReader.a
+quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMAsmParser.a
+quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMBitReader.a
+quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMCore.a
+quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMBinaryFormat.a
+quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMSupport.a
+quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMDemangle.a
 quadClassifier: CMakeFiles/quadClassifier.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable quadClassifier"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/quadClassifier.dir/link.txt --verbose=$(VERBOSE)
