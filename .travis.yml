@@ -4,3 +4,5 @@ language: c++
 script: scons
 compiler: clang++
 os: osx
+
+script: make test

@@ -43,10 +43,10 @@ RM = /usr/local/Cellar/cmake/3.13.3/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/will/GitRepos/cs6015-assignment3
+CMAKE_SOURCE_DIR = /Users/will/GitRepos/cs6015-assignment4
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/will/GitRepos/cs6015-assignment3/build
+CMAKE_BINARY_DIR = /Users/will/GitRepos/cs6015-assignment4/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/quadClassifier.dir/depend.make
@@ -59,42 +59,42 @@ include CMakeFiles/quadClassifier.dir/flags.make
 
 CMakeFiles/quadClassifier.dir/main.cpp.o: CMakeFiles/quadClassifier.dir/flags.make
 CMakeFiles/quadClassifier.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/quadClassifier.dir/main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/quadClassifier.dir/main.cpp.o -c /Users/will/GitRepos/cs6015-assignment3/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/will/GitRepos/cs6015-assignment4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/quadClassifier.dir/main.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/quadClassifier.dir/main.cpp.o -c /Users/will/GitRepos/cs6015-assignment4/main.cpp
 
 CMakeFiles/quadClassifier.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadClassifier.dir/main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/will/GitRepos/cs6015-assignment3/main.cpp > CMakeFiles/quadClassifier.dir/main.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/will/GitRepos/cs6015-assignment4/main.cpp > CMakeFiles/quadClassifier.dir/main.cpp.i
 
 CMakeFiles/quadClassifier.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadClassifier.dir/main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/will/GitRepos/cs6015-assignment3/main.cpp -o CMakeFiles/quadClassifier.dir/main.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/will/GitRepos/cs6015-assignment4/main.cpp -o CMakeFiles/quadClassifier.dir/main.cpp.s
 
 CMakeFiles/quadClassifier.dir/qdShape.cpp.o: CMakeFiles/quadClassifier.dir/flags.make
 CMakeFiles/quadClassifier.dir/qdShape.cpp.o: ../qdShape.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/quadClassifier.dir/qdShape.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/quadClassifier.dir/qdShape.cpp.o -c /Users/will/GitRepos/cs6015-assignment3/qdShape.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/will/GitRepos/cs6015-assignment4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/quadClassifier.dir/qdShape.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/quadClassifier.dir/qdShape.cpp.o -c /Users/will/GitRepos/cs6015-assignment4/qdShape.cpp
 
 CMakeFiles/quadClassifier.dir/qdShape.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadClassifier.dir/qdShape.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/will/GitRepos/cs6015-assignment3/qdShape.cpp > CMakeFiles/quadClassifier.dir/qdShape.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/will/GitRepos/cs6015-assignment4/qdShape.cpp > CMakeFiles/quadClassifier.dir/qdShape.cpp.i
 
 CMakeFiles/quadClassifier.dir/qdShape.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadClassifier.dir/qdShape.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/will/GitRepos/cs6015-assignment3/qdShape.cpp -o CMakeFiles/quadClassifier.dir/qdShape.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/will/GitRepos/cs6015-assignment4/qdShape.cpp -o CMakeFiles/quadClassifier.dir/qdShape.cpp.s
 
 CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.o: CMakeFiles/quadClassifier.dir/flags.make
 CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.o: ../shapeClassifier.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.o -c /Users/will/GitRepos/cs6015-assignment3/shapeClassifier.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/will/GitRepos/cs6015-assignment4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.o -c /Users/will/GitRepos/cs6015-assignment4/shapeClassifier.cpp
 
 CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/will/GitRepos/cs6015-assignment3/shapeClassifier.cpp > CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/will/GitRepos/cs6015-assignment4/shapeClassifier.cpp > CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.i
 
 CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/will/GitRepos/cs6015-assignment3/shapeClassifier.cpp -o CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/will/GitRepos/cs6015-assignment4/shapeClassifier.cpp -o CMakeFiles/quadClassifier.dir/shapeClassifier.cpp.s
 
 # Object files for target quadClassifier
 quadClassifier_OBJECTS = \
@@ -119,7 +119,7 @@ quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMBinaryFormat.a
 quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMSupport.a
 quadClassifier: /usr/local/Cellar/llvm/7.0.1/lib/libLLVMDemangle.a
 quadClassifier: CMakeFiles/quadClassifier.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable quadClassifier"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/will/GitRepos/cs6015-assignment4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable quadClassifier"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/quadClassifier.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -132,6 +132,6 @@ CMakeFiles/quadClassifier.dir/clean:
 .PHONY : CMakeFiles/quadClassifier.dir/clean
 
 CMakeFiles/quadClassifier.dir/depend:
-	cd /Users/will/GitRepos/cs6015-assignment3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/will/GitRepos/cs6015-assignment3 /Users/will/GitRepos/cs6015-assignment3 /Users/will/GitRepos/cs6015-assignment3/build /Users/will/GitRepos/cs6015-assignment3/build /Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles/quadClassifier.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/will/GitRepos/cs6015-assignment4/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/will/GitRepos/cs6015-assignment4 /Users/will/GitRepos/cs6015-assignment4 /Users/will/GitRepos/cs6015-assignment4/build /Users/will/GitRepos/cs6015-assignment4/build /Users/will/GitRepos/cs6015-assignment4/build/CMakeFiles/quadClassifier.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/quadClassifier.dir/depend
 

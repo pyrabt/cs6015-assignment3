@@ -59,10 +59,10 @@ RM = /usr/local/Cellar/cmake/3.13.3/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/will/GitRepos/cs6015-assignment3
+CMAKE_SOURCE_DIR = /Users/will/GitRepos/cs6015-assignment4
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/will/GitRepos/cs6015-assignment3/build
+CMAKE_BINARY_DIR = /Users/will/GitRepos/cs6015-assignment4/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/quadClassifier.dir
@@ -71,7 +71,7 @@ CMAKE_BINARY_DIR = /Users/will/GitRepos/cs6015-assignment3/build
 CMakeFiles/quadClassifier.dir/all:
 	$(MAKE) -f CMakeFiles/quadClassifier.dir/build.make CMakeFiles/quadClassifier.dir/depend
 	$(MAKE) -f CMakeFiles/quadClassifier.dir/build.make CMakeFiles/quadClassifier.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles --progress-num=1,2,3,4 "Built target quadClassifier"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/will/GitRepos/cs6015-assignment4/build/CMakeFiles --progress-num=1,2,3,4 "Built target quadClassifier"
 .PHONY : CMakeFiles/quadClassifier.dir/all
 
 # Include target in all.
@@ -81,9 +81,9 @@ all: CMakeFiles/quadClassifier.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/quadClassifier.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/will/GitRepos/cs6015-assignment4/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/quadClassifier.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/will/GitRepos/cs6015-assignment4/build/CMakeFiles 0
 .PHONY : CMakeFiles/quadClassifier.dir/rule
 
 # Convenience name for target.
@@ -108,14 +108,14 @@ clean: CMakeFiles/quadClassifier.dir/clean
 CMakeFiles/intrinsics_gen.dir/all:
 	$(MAKE) -f CMakeFiles/intrinsics_gen.dir/build.make CMakeFiles/intrinsics_gen.dir/depend
 	$(MAKE) -f CMakeFiles/intrinsics_gen.dir/build.make CMakeFiles/intrinsics_gen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles --progress-num= "Built target intrinsics_gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/will/GitRepos/cs6015-assignment4/build/CMakeFiles --progress-num= "Built target intrinsics_gen"
 .PHONY : CMakeFiles/intrinsics_gen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/intrinsics_gen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/will/GitRepos/cs6015-assignment4/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/intrinsics_gen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/will/GitRepos/cs6015-assignment3/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/will/GitRepos/cs6015-assignment4/build/CMakeFiles 0
 .PHONY : CMakeFiles/intrinsics_gen.dir/rule
 
 # Convenience name for target.
