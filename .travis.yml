@@ -3,4 +3,4 @@ script: scons
 compiler: clang++
 os: osx
 
-script: make test
+script: make &&  make test

@@ -1,2 +1,4 @@
+classifier:
+	clang++ main.cpp qdShape.cpp shapeClassifier.cpp -o classifier
 test:
-	cs6015-assignment4/build/.quadClassifier < testInput.txt > output.txt
+	classifier < testInput.txt > output.txt
