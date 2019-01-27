@@ -1,5 +1,7 @@
 language: c++
 
+os: macos
+
 matrix:
   include:
     - os: osx
