@@ -1,6 +1,9 @@
-language: c++
+install: make get-deps
 
-os: macos
+language: c++
+script: scons
+compiler: clang++
+os: osx
 
 matrix:
   include:
