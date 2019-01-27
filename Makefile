@@ -1,2 +1,2 @@
 test:
-	/build/.quadClassifier < /build/testInput.txt > output.txt
+	cs6015-assignment4/build/.quadClassifier < cs6015-assignment4/build/testInput.txt > output.txt
