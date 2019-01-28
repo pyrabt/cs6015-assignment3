@@ -13,7 +13,7 @@ bool qShapeClasser::isSquare(const QuadShape shapeToClass) {
   std::vector<double> sides = shapeToClass.getSides();
   double side = sides[0];
   for (int s = 0; s < sides.size(); ++s) {
-    if (sides[s] != side) {
+    if (sides[s] == side) {
       return false;
     }
   }
