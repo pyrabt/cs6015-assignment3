@@ -43,6 +43,12 @@ private:
   // slope list
   void setSlopes();
 
+  // checking if point is valid integer
+  bool isNumberString(std::string num);
+
+  // validates the string tokens read from input file
+  void inputValErrorChecking(const std::string num);
+
 public:
   // initialize shape with line containing coordinates
   QuadShape(const std::string vertices);

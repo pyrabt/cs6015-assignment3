@@ -11,4 +11,3 @@ parallelogram
 rhombus
 rhombus
 quadrilateral
-quadrilateral

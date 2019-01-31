@@ -14,7 +14,7 @@
 #include <vector>
 
 int main(int argc, const char *argv[]) {
-  std::string num;
+  std::string num; 
   while (getline(std::cin, num)) {
     QuadShape testShape = QuadShape(num);
     qShapeClasser classifier;

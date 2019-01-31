@@ -42,4 +42,5 @@ CTestTestfile.cmake
 *.exe
 *.out
 *.app
-
+*.profraw
+.ycm_extra_conf.py

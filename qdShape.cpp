@@ -7,6 +7,7 @@
 //
 
 #include "qdShape.hpp"
+#include <cctype>
 #include <cmath>
 #include <iostream>
 #include <sstream>
@@ -30,7 +31,28 @@ void QuadShape::getCoordPairs(const std::vector<int> vertices) {
   coordinates.push_back(std::make_pair(vertices[2], vertices[3]));
   coordinates.push_back(std::make_pair(vertices[4], vertices[5]));
 }
+// checking if point is a valid integer 
+bool QuadShape::isNumberString(std::string num) {
+  for (char c : num) {
+    if (c < 48 || c > 57) {
+      return false;
+    }
+  }
+  return true;
+}
 
+// This validates the string tokens read in from the input file
+void QuadShape::inputValErrorChecking(const std::string num) {
+  if (isNumberString(num) == false) {
+    std::cout << "error 1: Invalid Symbol" << std::endl;
+    exit(1);
+  }
+  if (std::stoi(num) < 0 ||
+      std::stoi(num) > 100) { // Checking for valid point range
+    std::cout << "error 1: Point Out Of Range" << std::endl;
+    exit(1);
+  }
+}
 /*
  * This takes the line which contains the formatted numbers for the 3 vertices
  * and splits by the whitespace using tokens.
@@ -39,8 +61,15 @@ std::vector<int> QuadShape::inputLnToIntVec(std::string line) {
   std::vector<int> points;
   std::istringstream parser(line);
   std::string number;
+
   while (parser >> number) {
+  inputValErrorChecking(number);
     points.push_back(std::stoi(number));
+  }
+
+  if (points.size() != 6) { // Error checking for invalid # of points
+    std::cout << "error 1: Invalid Number Of Inputs" << std::endl;
+    exit(1);
   }
   return points;
 }
@@ -50,7 +79,6 @@ std::vector<int> QuadShape::inputLnToIntVec(std::string line) {
  * THIS ASSUMES THE POINTS FALL ON THE GRAPH IN A CERTAIN ORDER
  */
 void QuadShape::setSides() {
-
   for (int p = 0; p < coordinates.size() - 1; ++p) {
     double xVals = pow(abs(coordinates[p + 1].first - coordinates[p].first), 2);
     double yVals =
