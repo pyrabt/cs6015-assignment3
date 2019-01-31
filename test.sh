@@ -63,3 +63,13 @@ elif [ $error == 1 ]
 then
 echo "too few points error test passed"
 fi
+
+./classifier < testCaseFiles/error2_1.txt
+error=$?
+if [ $error == 0 ]
+then
+echo "coinciding points error test failed"
+elif [ $error == 1 ]
+then
+echo "coinciding points error test passed"
+fi

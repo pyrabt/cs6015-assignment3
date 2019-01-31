@@ -49,6 +49,9 @@ private:
   // validates the string tokens read from input file
   void inputValErrorChecking(const std::string num);
 
+  // looking for coinciding points
+  void checkForDuplicatePoints();
+
 public:
   // initialize shape with line containing coordinates
   QuadShape(const std::string vertices);

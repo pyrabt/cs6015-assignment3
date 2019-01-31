@@ -30,8 +30,23 @@ void QuadShape::getCoordPairs(const std::vector<int> vertices) {
   coordinates.push_back(std::make_pair(vertices[0], vertices[1]));
   coordinates.push_back(std::make_pair(vertices[2], vertices[3]));
   coordinates.push_back(std::make_pair(vertices[4], vertices[5]));
+  checkForDuplicatePoints();
 }
-// checking if point is a valid integer 
+
+// very poor algo complexity, but i'm really tired so this will have to do for
+// now
+void QuadShape::checkForDuplicatePoints() {
+  for (int i = 0; i < coordinates.size(); ++i) {
+    for (int j = i + 1; j < coordinates.size(); ++j) {
+      if (coordinates[i] == coordinates[j]) {
+        std::cout << "error 2: Coinciding Points" << std::endl;
+        exit(1);
+      }
+    }
+  }
+}
+
+// checking if point is a valid integer
 bool QuadShape::isNumberString(std::string num) {
   for (char c : num) {
     if (c < 48 || c > 57) {
@@ -63,7 +78,7 @@ std::vector<int> QuadShape::inputLnToIntVec(std::string line) {
   std::string number;
 
   while (parser >> number) {
-  inputValErrorChecking(number);
+    inputValErrorChecking(number);
     points.push_back(std::stoi(number));
   }
 
