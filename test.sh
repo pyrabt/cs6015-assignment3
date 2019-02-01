@@ -64,6 +64,7 @@ then
 echo "too few points error test passed"
 fi
 
+# ERROR 2 TEST CASES
 ./classifier < testCaseFiles/error2_1.txt
 error=$?
 if [ $error == 0 ]
@@ -72,4 +73,15 @@ echo "coinciding points error test failed"
 elif [ $error == 1 ]
 then
 echo "coinciding points error test passed"
+fi
+
+# ERROR 4 TEST CASES
+./classifier < testCaseFiles/error4_1.txt
+error=$?
+if [ $error == 0 ]
+then
+echo "collinear points error test failed"
+elif [ $error == 4 ]
+then
+echo "collinear points error test passed"
 fi

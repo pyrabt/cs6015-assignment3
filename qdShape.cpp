@@ -31,6 +31,19 @@ void QuadShape::getCoordPairs(const std::vector<int> vertices) {
   coordinates.push_back(std::make_pair(vertices[2], vertices[3]));
   coordinates.push_back(std::make_pair(vertices[4], vertices[5]));
   checkForDuplicatePoints();
+  collinearPointsCheck();
+}
+
+// check if the given shape has colinear points
+void QuadShape::collinearPointsCheck() {
+  int a = (coordinates[2].second - coordinates[1].second) *
+          (coordinates[3].first - coordinates[2].first);
+  int b = (coordinates[2].first - coordinates[1].first) *
+          (coordinates[3].second - coordinates[2].second);
+  if ((a - b) == 0) {
+    std::cout << "error 4: Collinear Points" << std::endl;
+    exit(4);
+  }
 }
 
 // very poor algo complexity, but i'm really tired so this will have to do for

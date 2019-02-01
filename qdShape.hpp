@@ -21,7 +21,7 @@
 class QuadShape {
 private:
   // the coordinates of this shape
-  std::vector<std::pair<int, int> > coordinates;
+  std::vector<std::pair<int, int>> coordinates;
 
   // side lengths ordered bot, right, top, left
   std::vector<double> sideLengths;
@@ -51,6 +51,9 @@ private:
 
   // looking for coinciding points
   void checkForDuplicatePoints();
+
+  // checking for collinear points
+  void collinearPointsCheck();
 
 public:
   // initialize shape with line containing coordinates
