@@ -75,6 +75,27 @@ then
 echo "coinciding points error test passed"
 fi
 
+# ERROR 3 TEST CASES
+./classifier < testCaseFiles/error3_1.txt
+error=$?
+if [ $error == 0 ]
+then
+echo "intersecting lines error test failed"
+elif [ $error == 3 ]
+then
+echo "intersecting lines error test passed"
+fi
+
+./classifier < testCaseFiles/error3_2.txt
+error=$?
+if [ $error == 0 ]
+then
+echo "intersecting lines error test failed"
+elif [ $error == 3 ]
+then
+echo "intersecting lines error test passed"
+fi
+
 # ERROR 4 TEST CASES
 ./classifier < testCaseFiles/error4_1.txt
 error=$?

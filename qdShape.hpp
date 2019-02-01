@@ -55,6 +55,9 @@ private:
   // checking for collinear points
   void collinearPointsCheck();
 
+  // checking for line intersection
+  void lineIntersectCheck();
+
 public:
   // initialize shape with line containing coordinates
   QuadShape(const std::string vertices);

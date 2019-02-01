@@ -19,6 +19,7 @@ QuadShape::QuadShape(const std::string vertices) {
   getCoordPairs(inputLnToIntVec(vertices));
   setSides();
   setSlopes();
+  lineIntersectCheck();
 }
 
 /*
@@ -32,6 +33,16 @@ void QuadShape::getCoordPairs(const std::vector<int> vertices) {
   coordinates.push_back(std::make_pair(vertices[4], vertices[5]));
   checkForDuplicatePoints();
   collinearPointsCheck();
+}
+
+// Intersecting points check
+void QuadShape::lineIntersectCheck() {
+  if ( (slopes[0] > 0 && slopes[2] < 0) || (slopes[0] < 0 && slopes[2] > 0) ) {
+    if (coordinates[1].second >= coordinates[2].second) {
+      std::cout << "error 3: Intersecting Lines" << std::endl;
+      exit(3);
+    }
+  }
 }
 
 // check if the given shape has colinear points
