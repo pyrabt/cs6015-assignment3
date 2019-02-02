@@ -7,6 +7,7 @@
 //
 
 #include "qdShape.hpp"
+#include <algorithm>
 #include <cctype>
 #include <cmath>
 #include <iostream>
@@ -19,7 +20,7 @@ QuadShape::QuadShape(const std::string vertices) {
   getCoordPairs(inputLnToIntVec(vertices));
   setSides();
   setSlopes();
-  lineIntersectCheck();
+  lineCollinearIntersectCheck();
 }
 
 /*
@@ -32,17 +33,7 @@ void QuadShape::getCoordPairs(const std::vector<int> vertices) {
   coordinates.push_back(std::make_pair(vertices[2], vertices[3]));
   coordinates.push_back(std::make_pair(vertices[4], vertices[5]));
   checkForDuplicatePoints();
-  collinearPointsCheck();
-}
-
-// Intersecting points check
-void QuadShape::lineIntersectCheck() {
-  if ((slopes[0] > 0 && slopes[2] < 0) || (slopes[0] < 0 && slopes[2] > 0)) {
-    if (coordinates[1].second >= coordinates[2].second) {
-      std::cout << "error 3: Intersecting Lines" << std::endl;
-      exit(3);
-    }
-  }
+  // collinearsCheck();
 }
 
 // are more than 2 zeroed values (points on x/y base plane
@@ -60,17 +51,29 @@ bool QuadShape::areMultPointsOnBasePlanes() {
   return (xCount > 2) || (yCount > 2);
 }
 
-// check if the given shape has colinear points
-void QuadShape::collinearPointsCheck() {
-  for (int p = 0; p < 3; ++p) {
+// checks for orientation of 3 points at a time and errors if lines are collinear
+// or cross each other
+void QuadShape::lineCollinearIntersectCheck() {
+  int orientations[4];
+  for (int p = 0; p < 4; ++p) {
     int a = (coordinates[p + 1 % 4].second - coordinates[p % 4].second) *
             (coordinates[p + 2 % 4].first - coordinates[p + 1 % 4].first);
     int b = (coordinates[p + 1 % 4].first - coordinates[p % 4].first) *
             (coordinates[p + 2 % 4].second - coordinates[p + 1 % 4].second);
-    if ((a - b) == 0 || areMultPointsOnBasePlanes()) {
-      std::cout << "error 4: Collinear Points" << std::endl;
+    if ((a - b) == 0) {
+      orientations[0] = 0;
+      std::cout << "error 4: Collinear std::std::pair<int, int>s" << std::endl;
       exit(4);
+    } else if ((a - b) > 0) {
+      orientations[0] = 1;
+    } else {
+      orientations[0] = 2;
     }
+  }
+  if (orientations[0] != orientations[1] &&
+      orientations[2] != orientations[3]) {
+    std::cout << "error 3: Intersecting Lines" << std::endl;
+    exit(3);
   }
 }
 
@@ -80,7 +83,8 @@ void QuadShape::checkForDuplicatePoints() {
   for (int i = 0; i < coordinates.size(); ++i) {
     for (int j = i + 1; j < coordinates.size(); ++j) {
       if (coordinates[i] == coordinates[j]) {
-        std::cout << "error 2: Coinciding Points" << std::endl;
+        std::cout << "error 2: Coinciding std::std::pair<int, int>s"
+                  << std::endl;
         exit(1);
       }
     }
@@ -105,7 +109,7 @@ void QuadShape::inputValErrorChecking(const std::string num) {
   }
   if (std::stoi(num) < 0 ||
       std::stoi(num) > 100) { // Checking for valid point range
-    std::cout << "error 1: Point Out Of Range" << std::endl;
+    std::cout << "error 1: std::std::pair<int, int> Out Of Range" << std::endl;
     exit(1);
   }
 }
@@ -169,3 +173,4 @@ void QuadShape::setSlopes() {
     slopes.push_back(yVals / xVals);
   }
 }
+

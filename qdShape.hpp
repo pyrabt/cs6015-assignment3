@@ -53,10 +53,10 @@ private:
   void checkForDuplicatePoints();
 
   // checking for collinear points
-  void collinearPointsCheck();
+  // void collinearPointsCheck();
 
   // checking for line intersection
-  void lineIntersectCheck();
+  void lineCollinearIntersectCheck();
 
   // checking for multiple points on base plane
   bool areMultPointsOnBasePlanes();
