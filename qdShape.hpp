@@ -58,6 +58,9 @@ private:
   // checking for line intersection
   void lineIntersectCheck();
 
+  // checking for multiple points on base plane
+  bool areMultPointsOnBasePlanes();
+
 public:
   // initialize shape with line containing coordinates
   QuadShape(const std::string vertices);

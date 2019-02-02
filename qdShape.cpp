@@ -37,7 +37,7 @@ void QuadShape::getCoordPairs(const std::vector<int> vertices) {
 
 // Intersecting points check
 void QuadShape::lineIntersectCheck() {
-  if ( (slopes[0] > 0 && slopes[2] < 0) || (slopes[0] < 0 && slopes[2] > 0) ) {
+  if ((slopes[0] > 0 && slopes[2] < 0) || (slopes[0] < 0 && slopes[2] > 0)) {
     if (coordinates[1].second >= coordinates[2].second) {
       std::cout << "error 3: Intersecting Lines" << std::endl;
       exit(3);
@@ -45,15 +45,32 @@ void QuadShape::lineIntersectCheck() {
   }
 }
 
+// are more than 2 zeroed values (points on x/y base plane
+bool QuadShape::areMultPointsOnBasePlanes() {
+  int xCount = 0;
+  int yCount = 0;
+  for (int p = 0; p < coordinates.size(); ++p) {
+    if (coordinates[p].first == 0) {
+      ++yCount;
+    }
+    if (coordinates[p].second == 0) {
+      ++xCount;
+    }
+  }
+  return (xCount > 2) || (yCount > 2);
+}
+
 // check if the given shape has colinear points
 void QuadShape::collinearPointsCheck() {
-  int a = (coordinates[2].second - coordinates[1].second) *
-          (coordinates[3].first - coordinates[2].first);
-  int b = (coordinates[2].first - coordinates[1].first) *
-          (coordinates[3].second - coordinates[2].second);
-  if ((a - b) == 0) {
-    std::cout << "error 4: Collinear Points" << std::endl;
-    exit(4);
+  for (int p = 0; p < 3; ++p) {
+    int a = (coordinates[p + 1 % 4].second - coordinates[p % 4].second) *
+            (coordinates[p + 2 % 4].first - coordinates[p + 1 % 4].first);
+    int b = (coordinates[p + 1 % 4].first - coordinates[p % 4].first) *
+            (coordinates[p + 2 % 4].second - coordinates[p + 1 % 4].second);
+    if ((a - b) == 0 || areMultPointsOnBasePlanes()) {
+      std::cout << "error 4: Collinear Points" << std::endl;
+      exit(4);
+    }
   }
 }
 
