@@ -104,6 +104,28 @@ then
 echo "intersecting lines error test passed"
 fi
 
+./classifier < testCaseFiles/error3_3.txt
+error=$?
+if [ $error == 0 ]
+then
+echo "intersecting lines error test failed"
+exit 1
+elif [ $error == 4 ]
+then
+echo "intersecting lines error test passed"
+fi
+
+./classifier < testCaseFiles/error3_4.txt
+error=$?
+if [ $error == 0 ]
+then
+echo "intersecting lines error test failed"
+exit 1
+elif [ $error == 4 ]
+then
+echo "intersecting lines error test passed"
+fi
+
 # ERROR 4 TEST CASES
 ./classifier < testCaseFiles/error4_1.txt
 error=$?

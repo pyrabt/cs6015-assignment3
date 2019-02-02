@@ -20,7 +20,7 @@ QuadShape::QuadShape(const std::string vertices) {
   getCoordPairs(inputLnToIntVec(vertices));
   setSides();
   setSlopes();
-  lineCollinearIntersectCheck();
+  lineIntersectCheck();
 }
 
 /*
@@ -33,47 +33,36 @@ void QuadShape::getCoordPairs(const std::vector<int> vertices) {
   coordinates.push_back(std::make_pair(vertices[2], vertices[3]));
   coordinates.push_back(std::make_pair(vertices[4], vertices[5]));
   checkForDuplicatePoints();
-  // collinearsCheck();
+  collinearPointsCheck();
 }
 
-// are more than 2 zeroed values (points on x/y base plane
-bool QuadShape::areMultPointsOnBasePlanes() {
-  int xCount = 0;
-  int yCount = 0;
-  for (int p = 0; p < coordinates.size(); ++p) {
-    if (coordinates[p].first == 0) {
-      ++yCount;
-    }
-    if (coordinates[p].second == 0) {
-      ++xCount;
-    }
-  }
-  return (xCount > 2) || (yCount > 2);
+bool isCollinear(std::pair<int, int> A, std::pair<int, int> B,
+                 std::pair<int, int> C) {
+  return ((C.second - B.second) * (B.first - A.first)) ==
+         ((B.second - A.second) * (C.first - B.first));
 }
 
-// checks for orientation of 3 points at a time and errors if lines are collinear
-// or cross each other
-void QuadShape::lineCollinearIntersectCheck() {
-  int orientations[4];
-  for (int p = 0; p < 4; ++p) {
-    int a = (coordinates[p + 1 % 4].second - coordinates[p % 4].second) *
-            (coordinates[p + 2 % 4].first - coordinates[p + 1 % 4].first);
-    int b = (coordinates[p + 1 % 4].first - coordinates[p % 4].first) *
-            (coordinates[p + 2 % 4].second - coordinates[p + 1 % 4].second);
-    if ((a - b) == 0) {
-      orientations[0] = 0;
-      std::cout << "error 4: Collinear std::std::pair<int, int>s" << std::endl;
-      exit(4);
-    } else if ((a - b) > 0) {
-      orientations[0] = 1;
-    } else {
-      orientations[0] = 2;
-    }
+// checking cases for collinear points
+void QuadShape::collinearPointsCheck() {
+  bool case1 = isCollinear(coordinates[0], coordinates[1], coordinates[2]); // ABC
+  bool case2 = isCollinear(coordinates[0], coordinates[1], coordinates[3]); // ABD
+  bool case3 = isCollinear(coordinates[0], coordinates[2], coordinates[3]); // ACD
+  bool case4 = isCollinear(coordinates[1], coordinates[2], coordinates[3]); // BCD
+
+  if (case1 || case2 || case3 || case4) {
+    std::cout << "error 4" << std::endl;
+    exit(4);
   }
-  if (orientations[0] != orientations[1] &&
-      orientations[2] != orientations[3]) {
-    std::cout << "error 3: Intersecting Lines" << std::endl;
-    exit(3);
+}
+
+// checks for orientation of 3 points at a time and errors if lines are
+// collinear or cross each other
+void QuadShape::lineIntersectCheck() {
+  if (slopes[0] > 0 && slopes[2] < 0) {
+    if (coordinates[1].second >= coordinates[2].second) {
+      std::cout << "error 3: Intersecting Lines" << std::endl;
+      exit(3);
+    }
   }
 }
 
@@ -83,8 +72,7 @@ void QuadShape::checkForDuplicatePoints() {
   for (int i = 0; i < coordinates.size(); ++i) {
     for (int j = i + 1; j < coordinates.size(); ++j) {
       if (coordinates[i] == coordinates[j]) {
-        std::cout << "error 2: Coinciding std::std::pair<int, int>s"
-                  << std::endl;
+        std::cout << "error 2" << std::endl;
         exit(1);
       }
     }
@@ -104,12 +92,12 @@ bool QuadShape::isNumberString(std::string num) {
 // This validates the string tokens read in from the input file
 void QuadShape::inputValErrorChecking(const std::string num) {
   if (isNumberString(num) == false) {
-    std::cout << "error 1: Invalid Symbol" << std::endl;
+    std::cout << "error 1" << std::endl;
     exit(1);
   }
   if (std::stoi(num) < 0 ||
       std::stoi(num) > 100) { // Checking for valid point range
-    std::cout << "error 1: std::std::pair<int, int> Out Of Range" << std::endl;
+    std::cout << "error 1" << std::endl;
     exit(1);
   }
 }
@@ -128,7 +116,7 @@ std::vector<int> QuadShape::inputLnToIntVec(std::string line) {
   }
 
   if (points.size() != 6) { // Error checking for invalid # of points
-    std::cout << "error 1: Invalid Number Of Inputs" << std::endl;
+    std::cout << "error 1" << std::endl;
     exit(1);
   }
   return points;
@@ -173,4 +161,3 @@ void QuadShape::setSlopes() {
     slopes.push_back(yVals / xVals);
   }
 }
-
