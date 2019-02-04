@@ -8,6 +8,7 @@ import shutil
 import string
 
 path = os.getcwd() + "/fuzzer_files"
+prof_path = path + "/cov_data/"
 
 
 # create directory to do testing in
@@ -138,39 +139,49 @@ def generate_random_quad_cases():
     return rand_quad_filenames
 
 
-def generate_run_cases():
-    cov_filenames =[]
-    prof_path = path + "/cov_data/"
+def test_known_case(shape_case_gen, answerfile, coverage_files, oracle_values):
+    for test_file in shape_case_gen():
+        spl_file = test_file.split(".txt")
+        os.system("cd fuzzer_files/cov_data && LLVM_PROFILE_FILE=" + spl_file[0]
+                  + ".profraw " + "../../classifier < ../" + test_file + " > " + spl_file[0] + "_res" + spl_file[1])
+        coverage_files.append(test_file.split(".txt")[0] + ".profraw")
+
+        if os.system("diff -a fuzzer_files/cov_data/" + spl_file[0] + "_res" + spl_file[
+            1] + " " + answerfile + "_ans.txt") is 0:
+            oracle_values.append(0)
+        else:
+            oracle_values.append(1)
+
+
+
+def run_cases():
     os.mkdir(prof_path)
 
-    for test_file in generate_trapezoid_cases():
-        os.system("cd fuzzer_files/cov_data && LLVM_PROFILE_FILE=" + test_file.split(".txt")[0] + ".profraw " + "../../classifier < ../" + test_file)
-        cov_filenames.append(test_file.split(".txt")[0] + ".profraw")
+    cov_filenames = []
+    heuristic_oracle = []
 
-#    for test_file in generate_square_cases():
- #       os.system("LLVM_PROFILE_FILE=" + test_file + ".profraw " + "./classifier < fuzzer_files/" + test_file)
+    test_known_case(generate_trapezoid_cases, "trap", cov_filenames, heuristic_oracle)
+    test_known_case(generate_square_cases, "sqr", cov_filenames, heuristic_oracle)
+    test_known_case(generate_rectangle_cases, "rect", cov_filenames, heuristic_oracle)
+    # gen_test_known_cases(generate_random_ascii_cases, "ascii", cov_filenames, oracle)
+    # gen_test_known_cases(generate_random_quad_cases, "quad", cov_filenames, oracle)
 
-  #  for test_file in generate_rectangle_cases():
-   #     os.system("LLVM_PROFILE_FILE=" + test_file + ".profraw " + "./classifier < fuzzer_files/" + test_file)
-
-    #for test_file in generate_parallelogram_cases():
-     #   os.system("LLVM_PROFILE_FILE=" + test_file + ".profraw " + "./classifier < fuzzer_files/" + test_file)
-
-    #for test_file in generate_random_ascii_cases():
-     #   os.system("LLVM_PROFILE_FILE=" + test_file + ".profraw " + "./classifier < fuzzer_files/" + test_file)
-
-    #for test_file in generate_random_quad_cases():
-     #   os.system("LLVM_PROFILE_FILE=" + test_file + ".profraw " + "./classifier < fuzzer_files/" + test_file)
+    if heuristic_oracle.__contains__(1):
+        print "Heuristic oracle FAILURE"
+        exit(1)
+    else:
+        print "Heuristic oracle PASSED"
 
     return cov_filenames
+
 
 def produce_coveragefile(cov_files):
     print os.getcwd()
     hella_merg = ""
-    for file in cov_files:
-        hella_merg = hella_merg + "fuzzer_files/cov_data/" + file + " "
+    for prof_file in cov_files:
+        hella_merg = hella_merg + "fuzzer_files/cov_data/" + prof_file + " "
     print hella_merg + "-o rdmtesting.profdata"
-    os.system("xcrun llvm-profdata merge -sparse " + hella_merg + "-o rdmTesting.profdata")
+    os.system("xcrun llvm-profdata merge -sparse " + hella_merg + "-o coverage.txt")
 
 
 # remove temp directory
@@ -184,5 +195,5 @@ def clean():
 
 
 start()
-produce_coveragefile(generate_run_cases())
+produce_coveragefile(run_cases())
 clean()

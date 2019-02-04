@@ -20,3 +20,7 @@ cover:
 	xcrun llvm-profdata merge -sparse sInput1.profraw e1_1.profraw e1_2.profraw e1_3.profraw e1_4.profraw e1_5.profraw e2_1.profraw e3_1.profraw e3_2.profraw e3_3.profraw e4_1.profraw e4_2.profraw -o classifier.profdata
 	rm -f e1_1.profraw e1_2.profraw e1_3.profraw e1_4.profraw e1_5.profraw e2_1.profraw e3_1.profraw e3_2.profraw e3_3.profraw e4_1.profraw e4_2.profraw
 	xcrun llvm-cov show ./classifier -instr-profile=classifier.profdata
+
+fuzz:
+	python fuzz.py
+	xcrun llvm-cov show ./classifier -instr-profile=rdmTesting.profdata
