@@ -1,5 +1,5 @@
 classifier: main.cpp qdShape.cpp shapeClassifier.cpp
-	clang++ -std=c++14 main.cpp qdShape.cpp shapeClassifier.cpp -o classifier
+	clang++ -std=c++14 -fsanitize=address main.cpp qdShape.cpp shapeClassifier.cpp -o classifier
 test:
 	sh test.sh
 
@@ -21,6 +21,7 @@ cover:
 	rm -f e1_1.profraw e1_2.profraw e1_3.profraw e1_4.profraw e1_5.profraw e2_1.profraw e3_1.profraw e3_2.profraw e3_3.profraw e4_1.profraw e4_2.profraw
 	xcrun llvm-cov show ./classifier -instr-profile=classifier.profdata
 
-fuzz:
-	python fuzz.py
-	xcrun llvm-cov show ./classifier -instr-profile=rdmTesting.profdata
+fuzzer:
+	clang++ -std=c++14 -fsanitize=address -fprofile-instr-generate -fcoverage-mapping main.cpp qdShape.cpp shapeClassifier.cpp -o classifier
+	chmod +x fuzz.py
+	cp fuzz.py fuzz

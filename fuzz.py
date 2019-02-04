@@ -122,11 +122,11 @@ def generate_random_ascii_cases():
 def random_quads():
     points = [random.randint(0, 100)]
     for p in range(5):
-        points.append(random.randint(0, 100))
-        sq_coords = ''
+        points.append(random.randint(0, 150))
+        q_coords = ''
     for point in points:
-        sq_coords = sq_coords + str(point) + " "
-    return sq_coords
+        q_coords = q_coords + str(point) + " "
+    return q_coords
 
 
 def generate_random_quad_cases():
@@ -139,12 +139,67 @@ def generate_random_quad_cases():
     return rand_quad_filenames
 
 
-def test_known_case(shape_case_gen, answerfile, coverage_files, oracle_values):
+def random_num_of_points():
+    points_to_make = random.randint(0, 50)
+    output_line = ""
+    for p in range(points_to_make):
+        output_line = output_line + str(random.randint(0, 100)) + " "
+    return output_line
+
+
+def generate_random_input_size():
+    rand_input_size_filenames = []
+    for x in range(0, 100):
+        name_of_file = "testRandInput_" + str(x) + ".txt"
+        random_file = open("fuzzer_files/" + name_of_file, 'w')
+        random_file.write(random_num_of_points())
+        rand_input_size_filenames.append(name_of_file)
+    return rand_input_size_filenames
+
+
+def duplicate_points():
+    x1 = random.randint(0, 100)
+    y1 = random.randint(0, 100)
+    x2 = random.randint(0, 100)
+    y2 = random.randint(0, 100)
+    output_line = str(x1) + " " + str(y1) + " " + str(x2) + " " + str(y2) + " " + str(x1) + " " + str(y1)
+    return output_line
+
+
+def generate_dup_point():
+    dup_point_flnames = []
+    for x in range(0, 50):
+        name_of_file = "testDupPoint_" + str(x) + ".txt"
+        random_file = open("fuzzer_files/" + name_of_file, 'w')
+        random_file.write(duplicate_points())
+        dup_point_flnames.append(name_of_file)
+    return dup_point_flnames
+
+
+def collinear_points():
+    x1 = random.randint(0, 25)
+    y1 = random.randint(0, 25)
+    output_line = str(x1) + " " + str(y1) + " " + str(x1 * 2) + " " + str(y1 * 2) + " " + str(x1 * 3) + " " + str(
+        y1 * 3)
+    return output_line
+
+
+def generate_collin_points():
+    coll_point_flnames = []
+    for x in range(0, 50):
+        name_of_file = "testCollinPoint_" + str(x) + ".txt"
+        random_file = open("fuzzer_files/" + name_of_file, 'w')
+        random_file.write(collinear_points())
+        coll_point_flnames.append(name_of_file)
+    return coll_point_flnames
+
+
+def test_known_case(shape_case_gen, answerfile, coverage_flog, oracle_values):
     for test_file in shape_case_gen():
         spl_file = test_file.split(".txt")
         os.system("cd fuzzer_files/cov_data && LLVM_PROFILE_FILE=" + spl_file[0]
                   + ".profraw " + "../../classifier < ../" + test_file + " > " + spl_file[0] + "_res" + spl_file[1])
-        coverage_files.append(test_file.split(".txt")[0] + ".profraw")
+        coverage_flog.append(test_file.split(".txt")[0] + ".profraw")
 
         if os.system("diff -a fuzzer_files/cov_data/" + spl_file[0] + "_res" + spl_file[
             1] + " " + answerfile + "_ans.txt") is 0:
@@ -153,34 +208,82 @@ def test_known_case(shape_case_gen, answerfile, coverage_files, oracle_values):
             oracle_values.append(1)
 
 
+def test_random_case(rdm_generator, coverage_flog, oracle_vals):
+    for test_file in rdm_generator():
+        spl_file = test_file.split(".txt")
+        os.system("cd fuzzer_files/cov_data && LLVM_PROFILE_FILE=" + spl_file[0]
+                  + ".profraw " + "../../classifier < ../" + test_file + " > " + spl_file[0] + "_key" + spl_file[1])
+        coverage_flog.append(test_file.split(".txt")[0] + ".profraw")
+
+        os.system("cd fuzzer_files/cov_data && LLVM_PROFILE_FILE=" + spl_file[0]
+                  + ".profraw " + "../../classifier < ../" + test_file + " > " + spl_file[0] + "_res" + spl_file[1])
+        coverage_flog.append(test_file.split(".txt")[0] + ".profraw")
+
+        if os.system("diff -a fuzzer_files/cov_data/" + spl_file[0] + "_key" + spl_file[1] + " fuzzer_files/cov_data/" +
+                     spl_file[0] + "_key" + spl_file[1]) is 0:
+            oracle_vals.append(0)
+        else:
+            oracle_vals.append(1)
+
 
 def run_cases():
     os.mkdir(prof_path)
 
     cov_filenames = []
     heuristic_oracle = []
+    rdm_test_oracle = []
 
+
+    # Testing inputs with a known/expected key
+    print "Drawing and testing trapezoids..."
     test_known_case(generate_trapezoid_cases, "trap", cov_filenames, heuristic_oracle)
+    print "Drawing and testing squares..."
     test_known_case(generate_square_cases, "sqr", cov_filenames, heuristic_oracle)
+    print "Drawing and testing rectangles..."
     test_known_case(generate_rectangle_cases, "rect", cov_filenames, heuristic_oracle)
-    # gen_test_known_cases(generate_random_ascii_cases, "ascii", cov_filenames, oracle)
-    # gen_test_known_cases(generate_random_quad_cases, "quad", cov_filenames, oracle)
+    print "Drawing and testing parallelograms..."
+    test_known_case(generate_parallelogram_cases, "para", cov_filenames, heuristic_oracle)
+    print "Testing inputs with duplicate points..."
+    test_known_case(generate_dup_point, "dup", cov_filenames, heuristic_oracle)
+    print "Testing inputs with collinear points..."
+    test_known_case(generate_collin_points, "collin", cov_filenames, heuristic_oracle)
+
+    # Testing random inputs with a derived key from the initial run
+    print "Testing random inputs...(LOTS)"
+    test_random_case(generate_random_ascii_cases, cov_filenames, rdm_test_oracle)
+    test_random_case(generate_random_quad_cases, cov_filenames, rdm_test_oracle)
+    test_random_case(generate_random_input_size, cov_filenames, rdm_test_oracle)
 
     if heuristic_oracle.__contains__(1):
-        print "Heuristic oracle FAILURE"
-        exit(1)
+        print "Heuristic Key Oracle FAILURE"
     else:
-        print "Heuristic oracle PASSED"
+        print "Heuristic Key Oracle PASSED"
+
+    if rdm_test_oracle.__contains__(1):
+        print "Random Test Oracle FAILURE"
+    else:
+        print "Random Test Oracle PASSED"
+
+    if rdm_test_oracle.__contains__(1) and heuristic_oracle.__contains__(1):
+        print "ERROR"
+    else:
+        print """OK 
+                /@
+                \ \ 
+              ___> \ 
+             (__O)  \ 
+            (____@)  \ 
+            (____@)   \ 
+             (__o)_    \ 
+                   \    \ """
 
     return cov_filenames
 
 
 def produce_coveragefile(cov_files):
-    print os.getcwd()
     hella_merg = ""
     for prof_file in cov_files:
         hella_merg = hella_merg + "fuzzer_files/cov_data/" + prof_file + " "
-    print hella_merg + "-o rdmtesting.profdata"
     os.system("xcrun llvm-profdata merge -sparse " + hella_merg + "-o coverage.txt")
 
 
@@ -196,4 +299,3 @@ def clean():
 
 start()
 produce_coveragefile(run_cases())
-clean()
