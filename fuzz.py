@@ -264,7 +264,7 @@ def run_cases():
     else:
         print "Random Test Oracle PASSED"
 
-    if rdm_test_oracle.__contains__(1) and heuristic_oracle.__contains__(1):
+    if rdm_test_oracle.__contains__(1) or heuristic_oracle.__contains__(1):
         print "ERROR"
     else:
         print """OK 
