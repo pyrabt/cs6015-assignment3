@@ -44,10 +44,14 @@ bool isCollinear(std::pair<int, int> A, std::pair<int, int> B,
 
 // checking cases for collinear points
 void QuadShape::collinearPointsCheck() {
-  bool case1 = isCollinear(coordinates[0], coordinates[1], coordinates[2]); // ABC
-  bool case2 = isCollinear(coordinates[0], coordinates[1], coordinates[3]); // ABD
-  bool case3 = isCollinear(coordinates[0], coordinates[2], coordinates[3]); // ACD
-  bool case4 = isCollinear(coordinates[1], coordinates[2], coordinates[3]); // BCD
+  bool case1 =
+      isCollinear(coordinates[0], coordinates[1], coordinates[2]); // ABC
+  bool case2 =
+      isCollinear(coordinates[0], coordinates[1], coordinates[3]); // ABD
+  bool case3 =
+      isCollinear(coordinates[0], coordinates[2], coordinates[3]); // ACD
+  bool case4 =
+      isCollinear(coordinates[1], coordinates[2], coordinates[3]); // BCD
 
   if (case1 || case2 || case3 || case4) {
     std::cout << "error 4" << std::endl;
@@ -55,14 +59,34 @@ void QuadShape::collinearPointsCheck() {
   }
 }
 
+bool QuadShape::doIntersect(std::pair<int, int> a, std::pair<int, int> b,
+                 std::pair<int, int> c, std::pair<int, int> d) {
+  int seg1A = b.second - a.second;
+  int seg1B = a.first - b.first;
+  int seg2A = d.second - c.second;
+  int seg2B = c.first - d.first;
+  return ((seg1A * seg2B) - (seg2A * seg1B)) != 0;
+}
+
 // checks for orientation of 3 points at a time and errors if lines are
 // collinear or cross each other
 void QuadShape::lineIntersectCheck() {
-  if (slopes[0] > 0 && slopes[2] < 0) {
-    if (coordinates[1].second >= coordinates[2].second) {
-      std::cout << "error 3: Intersecting Lines" << std::endl;
-      exit(3);
-    }
+  bool case1 = doIntersect(coordinates[0], coordinates[1], coordinates[1],
+                           coordinates[2]); // AB v BC
+  bool case2 = doIntersect(coordinates[0], coordinates[1], coordinates[2],
+                           coordinates[3]); // AB v CD
+  bool case3 = doIntersect(coordinates[0], coordinates[1], coordinates[3],
+                           coordinates[1]); // AB v DA
+  bool case4 = doIntersect(coordinates[1], coordinates[2], coordinates[2],
+                           coordinates[3]); // BC v CD
+  bool case5 = doIntersect(coordinates[1], coordinates[2], coordinates[3],
+                           coordinates[1]); // BC v DA
+  bool case6 = doIntersect(coordinates[3], coordinates[0], coordinates[2],
+                           coordinates[3]); // DA v CD
+
+  if (case1 || case2 || case3 || case4 || case5 || case6) {
+    std::cout << "error 3" << std::endl;
+    exit(3);
   }
 }
 

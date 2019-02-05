@@ -21,7 +21,7 @@
 class QuadShape {
 private:
   // the coordinates of this shape
-  std::vector<std::pair<int, int> > coordinates;
+  std::vector<std::pair<int, int>> coordinates;
 
   // side lengths ordered bot, right, top, left
   std::vector<double> sideLengths;
@@ -54,6 +54,10 @@ private:
 
   // checking for collinear points
   void collinearPointsCheck();
+
+  // returns if given lines intersect
+  bool doIntersect(std::pair<int, int> a, std::pair<int, int> b,
+                   std::pair<int, int> c, std::pair<int, int> d);
 
   // checking for line intersection
   void lineIntersectCheck();
