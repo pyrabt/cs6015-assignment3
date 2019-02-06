@@ -59,14 +59,53 @@ void QuadShape::collinearPointsCheck() {
   }
 }
 
-bool QuadShape::doIntersect(std::pair<int, int> a, std::pair<int, int> b,
-                 std::pair<int, int> c, std::pair<int, int> d) {
-  int seg1A = b.second - a.second;
-  int seg1B = a.first - b.first;
-  int seg2A = d.second - c.second;
-  int seg2B = c.first - d.first;
-  return ((seg1A * seg2B) - (seg2A * seg1B)) != 0;
+bool isCornerPoint(int x, int y, std::pair<int, int> points[]) {
+  for (int p = 0; p < 4; ++p) {
+    if (points[p].first == x && points[p].second == y) {
+      return true;
+    }
+  }
+  return false;
 }
+
+bool QuadShape::doIntersect(std::pair<int, int> a, std::pair<int, int> b,
+                            std::pair<int, int> c, std::pair<int, int> d) {
+  std::pair<int, int> points[] = {a, b, c, d};
+  double seg1A = b.second - a.second;
+  double seg1B = a.first - b.first;
+  double seg1C = (seg1A * a.first) + (seg1B * a.second);
+  int seg1xmin = std::min(a.first, b.first);
+  int seg1xmax = std::max(a.first, b.first);
+  int seg1ymin = std::min(a.second, b.second);
+  int seg1ymax = std::max(a.second, b.second);
+
+  double seg2A = d.second - c.second;
+  double seg2B = c.first - d.first;
+  double seg2C = (seg2A * c.first) + (seg2B * c.second);
+  int seg2xmin = std::min(c.first, d.first);
+  int seg2xmax = std::max(c.first, d.first);
+  int seg2ymin = std::min(c.second, d.second);
+  int seg2ymax = std::max(c.second, d.second);
+
+  double det = (seg1A * seg2B) - (seg2A * seg1B);
+
+  if (det != 0) {
+    int x = ((seg2B * seg1C) - (seg1B * seg2C)) / det;
+    int y = ((seg1A * seg2C) - (seg2A * seg1C)) / det;
+
+    bool cornerPoint = isCornerPoint(x, y, points);
+    bool onLine1 = ((seg1xmin <= x) && (x <= seg1xmax)) && ((seg1ymin <= y) && (y <= seg1ymax));
+    bool onLine2 = ((seg2xmin <= x) && (x <= seg2xmax)) && ((seg2ymin <= y) && (y <= seg2ymax));
+
+    if (onLine1 && onLine2 && !cornerPoint) {
+      return true;
+    }
+    return false;
+  }
+  return false;
+}
+
+
 
 // checks for orientation of 3 points at a time and errors if lines are
 // collinear or cross each other
