@@ -59,72 +59,76 @@ void QuadShape::collinearPointsCheck() {
   }
 }
 
-bool isCornerPoint(int x, int y, std::pair<int, int> points[]) {
-  for (int p = 0; p < 4; ++p) {
-    if (points[p].first == x && points[p].second == y) {
-      return true;
-    }
+// Determines if point 'x' is on the line a-b
+bool onSegment(std::pair<int, int> a, std::pair<int, int> x,
+               std::pair<int, int> b) {
+
+  bool xSegCheck = x.first <= std::max(a.first, b.first) &&
+                   x.first >= std::min(a.first, b.first);
+  bool ySegCheck = x.second <= std::max(a.second, b.second) &&
+                   x.second >= std::min(a.second, b.second);
+
+  if (xSegCheck && ySegCheck) {
+    return true;
   }
   return false;
 }
 
+// Determine the orientation of three given points
+int setOrientation(std::pair<int, int> a, std::pair<int, int> b,
+                std::pair<int, int> c) {
+
+  int val = (b.second - a.second) * (c.first - b.first) -
+            (b.first - a.first) * (c.second - b.second);
+
+  if (val == 0)
+    return 0; // points are colinear
+
+  return (val > 0) ? 1 : 2; // 1 = clockwise | 2 = counter-clockwise
+}
+
+// Determines based on orientation if lines intersect
+// This algo was adapted from https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
 bool QuadShape::doIntersect(std::pair<int, int> a, std::pair<int, int> b,
                             std::pair<int, int> c, std::pair<int, int> d) {
-  std::pair<int, int> points[] = {a, b, c, d};
-  double seg1A = b.second - a.second;
-  double seg1B = a.first - b.first;
-  double seg1C = (seg1A * a.first) + (seg1B * a.second);
-  int seg1xmin = std::min(a.first, b.first);
-  int seg1xmax = std::max(a.first, b.first);
-  int seg1ymin = std::min(a.second, b.second);
-  int seg1ymax = std::max(a.second, b.second);
 
-  double seg2A = d.second - c.second;
-  double seg2B = c.first - d.first;
-  double seg2C = (seg2A * c.first) + (seg2B * c.second);
-  int seg2xmin = std::min(c.first, d.first);
-  int seg2xmax = std::max(c.first, d.first);
-  int seg2ymin = std::min(c.second, d.second);
-  int seg2ymax = std::max(c.second, d.second);
+  int o1 = setOrientation(a, b, c);
+  int o2 = setOrientation(a, b, d);
+  int o3 = setOrientation(c, d, a);
+  int o4 = setOrientation(c, d, b);
 
-  double det = (seg1A * seg2B) - (seg2A * seg1B);
+  if (o1 != o2 && o3 != o4)
+    return true;
 
-  if (det != 0) {
-    int x = ((seg2B * seg1C) - (seg1B * seg2C)) / det;
-    int y = ((seg1A * seg2C) - (seg2A * seg1C)) / det;
+  // c-a-d are collinear and a lies on the line c-d
+  if (o3 == 0 && onSegment(c, a, d))
+    return true;
 
-    bool cornerPoint = isCornerPoint(x, y, points);
-    bool onLine1 = ((seg1xmin <= x) && (x <= seg1xmax)) && ((seg1ymin <= y) && (y <= seg1ymax));
-    bool onLine2 = ((seg2xmin <= x) && (x <= seg2xmax)) && ((seg2ymin <= y) && (y <= seg2ymax));
+  // c-b-d are collinear and b lies on the line c-d
+  if (o4 == 0 && onSegment(c, b, d))
+    return true;
 
-    if (onLine1 && onLine2 && !cornerPoint) {
-      return true;
-    }
-    return false;
-  }
+  // a-b-c are collinear and c lies on the line a-b
+  if (o1 == 0 && onSegment(a, c, b))
+    return true;
+
+  // a-d-b are collinear and d lies on the line a-b
+  if (o2 == 0 && onSegment(a, d, b))
+    return true;
+
   return false;
 }
-
-
 
 // checks for orientation of 3 points at a time and errors if lines are
 // collinear or cross each other
 void QuadShape::lineIntersectCheck() {
-  bool case1 = doIntersect(coordinates[0], coordinates[1], coordinates[1],
-                           coordinates[2]); // AB v BC
-  bool case2 = doIntersect(coordinates[0], coordinates[1], coordinates[2],
-                           coordinates[3]); // AB v CD
-  bool case3 = doIntersect(coordinates[0], coordinates[1], coordinates[3],
-                           coordinates[1]); // AB v DA
-  bool case4 = doIntersect(coordinates[1], coordinates[2], coordinates[2],
-                           coordinates[3]); // BC v CD
-  bool case5 = doIntersect(coordinates[1], coordinates[2], coordinates[3],
-                           coordinates[1]); // BC v DA
-  bool case6 = doIntersect(coordinates[3], coordinates[0], coordinates[2],
-                           coordinates[3]); // DA v CD
+  bool case1 = doIntersect(coordinates[0], coordinates[1], coordinates[2],
+                           coordinates[3]);
+  bool case2 = doIntersect(coordinates[1], coordinates[2], coordinates[3],
+                           coordinates[0]);
 
-  if (case1 || case2 || case3 || case4 || case5 || case6) {
-    std::cout << "error 3" << std::endl;
+  if (case1 || case2) {
+    std::cout << "error 3\n";
     exit(3);
   }
 }

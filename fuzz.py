@@ -111,7 +111,7 @@ def random_ascii_string():
 
 def generate_random_ascii_cases():
     rand_ascii_filenames = []
-    for x in range(0, 300):
+    for x in range(0, 5000):
         name_of_file = "testRandAscii_" + str(x) + ".txt"
         random_file = open("fuzzer_files/" + name_of_file, 'w')
         random_file.write(random_ascii_string())
@@ -131,7 +131,7 @@ def random_quads():
 
 def generate_random_quad_cases():
     rand_quad_filenames = []
-    for x in range(0, 500):
+    for x in range(0, 5000):
         name_of_file = "testRandQuad_" + str(x) + ".txt"
         random_file = open("fuzzer_files/" + name_of_file, 'w')
         random_file.write(random_quads())
@@ -149,7 +149,7 @@ def random_num_of_points():
 
 def generate_random_input_size():
     rand_input_size_filenames = []
-    for x in range(0, 100):
+    for x in range(0, 5000):
         name_of_file = "testRandInput_" + str(x) + ".txt"
         random_file = open("fuzzer_files/" + name_of_file, 'w')
         random_file.write(random_num_of_points())
@@ -226,13 +226,39 @@ def test_random_case(rdm_generator, coverage_flog, oracle_vals):
             oracle_vals.append(1)
 
 
+def differential_test(rdm_generator):
+    count = 0
+    for test_file in rdm_generator():
+        spl_file = test_file.split(".txt")
+
+        os.system("cd fuzzer_files/cov_data && ../../classifier < ../" + test_file + " > " + spl_file[0] + "_me" + spl_file[1])
+
+        os.system("cd fuzzer_files/cov_data && ../../benifier < ../" + test_file + " > " + spl_file[0] + "_ben" + spl_file[1])
+
+        if os.system("diff -a fuzzer_files/cov_data/" + spl_file[0] + "_me" + spl_file[1] + " fuzzer_files/cov_data/" +
+                     spl_file[0] + "_ben" + spl_file[1]) is not 0:
+            print spl_file[0] + "_ben" + spl_file[1]
+            count = count + 1
+    return count
+
+
+def run_diff_testing():
+    discrepencies = 0
+    os.mkdir(prof_path)
+
+    discrepencies = discrepencies + differential_test(generate_random_ascii_cases)
+    discrepencies = discrepencies + differential_test(generate_random_quad_cases)
+    discrepencies = discrepencies + differential_test(generate_random_input_size)
+
+    print "Number of errors: " + str(discrepencies)
+
+
 def run_cases():
     os.mkdir(prof_path)
 
     cov_filenames = []
     heuristic_oracle = []
     rdm_test_oracle = []
-
 
     # Testing inputs with a known/expected key
     print "Drawing and testing trapezoids..."
@@ -298,4 +324,5 @@ def clean():
 
 
 start()
-produce_coveragefile(run_cases())
+#produce_coveragefile(run_cases())
+run_diff_testing()
