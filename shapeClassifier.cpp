@@ -62,10 +62,9 @@ bool qShapeClasser::isRhombus(const QuadShape shapeToClass) {
  */
 bool qShapeClasser::isTrapezoid(const QuadShape shapeToClass) {
   std::vector<double> slopes = shapeToClass.getSlopes();
-  bool botAndTopSlopes = slopes[0] == slopes[2];
-  bool ltAndRtSlopes = slopes[1] == slopes[3];
-  return (botAndTopSlopes && !ltAndRtSlopes) ||
-         (!botAndTopSlopes && ltAndRtSlopes);
+  bool botAndTopSlopes = abs(slopes[0]) == abs(slopes[2]);
+  bool ltAndRtSlopes = -slopes[1] == slopes[3] || slopes[1] == -slopes[3];
+  return (botAndTopSlopes && ltAndRtSlopes);
 }
 
 // neighboring sides must have inverse slopes and same lengths
