@@ -1,6 +1,5 @@
-classifier: ben.cpp main.cpp qdShape.cpp shapeClassifier.cpp
+classifier: main.cpp qdShape.cpp shapeClassifier.cpp
 	clang++ -std=c++14 -fsanitize=address main.cpp qdShape.cpp shapeClassifier.cpp -o classifier
-	clang++ -std=c++14 -fsanitize=address ben.cpp -o benifier
 
 test:
 	sh test.sh
